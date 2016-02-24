@@ -1,0 +1,34 @@
+{
+  "name": "jsx-hello-world",
+  "version": "0.1.0",
+  "description": "Minimal project with React and JSX",
+  "repository": "git",
+  "main": "html/index.html",
+  "author": "Eric Grivel",
+  "license": "ISC",
+  "scripts": {
+    "build": "browserify -t reactify src/boot.js -o dist/app.js",
+    "eslint": "eslint src/**/*.jsx src/**/*.js test/**/*.js",
+    "test": "mocha --compilers .jsx:tools/compiler.js test/**/*.js",
+    "coverage": "istanbul cover _mocha -- --compilers .jsx:tools/compiler.js test/**/*.js"
+  },
+  "dependencies": {
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "chai": "^3.5.0",
+    "eslint": "^2.2.0",
+    "eslint-config-google": "^0.4.0",
+    "eslint-config-xo": "^0.11.0",
+    "eslint-plugin-react": "^4.1.0",
+    "istanbul": "^0.4.2",
+    "jsdom": "^8.0.4",
+    "mocha": "^2.4.5",
+    "mocha-jsdom": "^1.1.0",
+    "react-addons-test-utils": "^0.14.7",
+    "react-tools": "^0.13.3",
+    "reactify": "^1.1.1"
+  }
+}
