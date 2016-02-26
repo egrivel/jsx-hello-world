@@ -7,10 +7,10 @@
   "author": "Eric Grivel",
   "license": "ISC",
   "scripts": {
-    "build": "browserify -t reactify src/boot.js -o dist/app.js",
+    "build": "grunt build",
     "eslint": "eslint src/**/*.jsx src/**/*.js test/**/*.js",
-    "test": "mocha --compilers .jsx:tools/compiler.js test/**/*.js",
-    "coverage": "istanbul cover _mocha -- --compilers .jsx:tools/compiler.js test/**/*.js"
+    "test": "grunt test",
+    "coverage": "grunt coverage"
   },
   "dependencies": {
     "react": "^0.14.7",
@@ -18,15 +18,24 @@
   },
   "devDependencies": {
     "browserify": "^13.0.0",
+    "browserify-istanbul": "^1.0.0",
     "chai": "^3.5.0",
+    "chalk": "^1.1.1",
     "eslint": "^2.2.0",
     "eslint-config-google": "^0.4.0",
     "eslint-config-xo": "^0.11.0",
     "eslint-plugin-react": "^4.1.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^4.0.1",
+    "grunt-mocha-istanbul": "^3.0.1",
+    "grunt-mocha-phantomjs": "^3.0.0",
     "istanbul": "^0.4.2",
+    "istanbul-combine": "^0.3.0",
     "jsdom": "^8.0.4",
+    "lodash": "^4.5.1",
     "mocha": "^2.4.5",
     "mocha-jsdom": "^1.1.0",
+    "mocha-phantomjs": "^4.0.2",
     "react-addons-test-utils": "^0.14.7",
     "react-tools": "^0.13.3",
     "reactify": "^1.1.1"
