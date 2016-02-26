@@ -79,6 +79,61 @@ var setupBuild = function(grunt) {
   });
 };
 
+var setupEslint = function(grunt) {
+  grunt.loadNpmTasks('grunt-eslint');
+  grunt.config('eslint', {
+    src: ['src/**/*.jsx', 'src/**/*.js', 'test/**/*.js']
+  });
+};
+
+var setupCheckFiles = function(grunt) {
+  grunt.config('check-files', {
+    src: 'src/*',
+    //   (?:)  non-capturing grouping
+    //   \w*   any whitespace character 0 or more times
+    //   \(    matches left parens
+    //   '|"   matches single quote OR double quote
+    badPatterns: [{
+      pattern: /eval(?:\s*)\(/,
+      resolution: 'Do not use the eval statement, ' +
+        'find another way to code this.'
+    }, {
+      pattern: /setTimeout(?:\s*)\((?:\s*)(?:'|")/,
+      resolution: 'Use a function instead of a string'
+    }, {
+      pattern: /setInterval(?:\s*)\((?:\s*)(?:'|")/,
+      resolution: 'Use a function instead of a string'
+    }, {
+      pattern: /Function(?:\s*)\((?:\s*)(?:'|")/,
+      resolution: 'Use a function instead of a string'
+    }, {
+      pattern: /innerHTML/,
+      resolution: 'Use textContent instead'
+    }, {
+      pattern: /dangerouslySetInnerHTML/,
+      resolution: 'React coding issue: find another way to code this'
+    }, {
+      pattern: /\.(?:\s*)html(?:\s*)\(/,
+      resolution: 'jQuery coding issue: use .text() instead'
+    }, {
+      pattern: /<%-/,
+      resolution: 'EJS Template issue: use escaped form to output, ' +
+        'e.g. %= instead of %-'
+    }, {
+      pattern: /\.(?:\s*)exec(?:\s*)\(/,
+      resolution: 'This is looking for Node\'s child_process.exec() method' +
+        'but will match any exec method. It is more secure to use ' +
+        'child_process.execFile instead. If this is a custom method ' +
+        'please change name'
+    }]
+  });
+};
+
+var setupAll = function(grunt) {
+  grunt.registerTask('all',
+    ['coverage', 'eslint', 'check-files']);
+}
+
 module.exports = function(grunt) {
   grunt.loadTasks('scripts/tasks');
 
@@ -87,4 +142,7 @@ module.exports = function(grunt) {
   setupTest(grunt);
   setupCoverage(grunt);
   setupBuild(grunt);
+  setupEslint(grunt);
+  setupCheckFiles(grunt);
+  setupAll(grunt);
 };
